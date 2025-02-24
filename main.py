@@ -6,7 +6,7 @@ from icecream import ic
 from util import *
 
 
-def game(door, switch):
+def game(door: int, switch: bool) -> bool:
     doors = np.array(["goat", "goat", "money"])
     rn.shuffle(doors)
 
@@ -21,7 +21,7 @@ def game(door, switch):
     return door_user == door_money
 
 
-def run_game(switch, iter, door):
+def run_game(switch: bool, iter: int, door: int) -> int:
     outcomes = []
 
     for i in range(iter):
