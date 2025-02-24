@@ -7,6 +7,7 @@ def get_money_door(doors: list) -> int:
             return i
 
 
+# Possibly horrible way of finding a door, but functional
 def get_open_door(da: int, db: int) -> int:
     rnd = da
     while rnd == da or rnd == db:
