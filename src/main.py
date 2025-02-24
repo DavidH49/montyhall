@@ -3,16 +3,22 @@ import numpy as np
 from numpy import random as rn
 from icecream import ic
 
-from util import *
+
+## Gets the one remaining door which doesn't contain money
+def get_open_door(da: int, db: int) -> int:
+    # Horrible way of finding the door, but functional
+    rnd = da
+    while rnd == da or rnd == db:
+        rnd = rn.randint(3)
+    
+    return rnd
 
 
+## Plays the game once with specified settings
 def game(door: int, switch: bool) -> bool:
-    doors = np.array(["goat", "goat", "money"])
-    rn.shuffle(doors)
-
     # Sets all the door indices
     door_user = door
-    door_money = get_money_door(doors)
+    door_money = rn.randint(3)
     door_open = get_open_door(door_user, door_money)
     door_switch = get_open_door(door_user, door_open)
 
@@ -24,6 +30,7 @@ def game(door: int, switch: bool) -> bool:
     return door_user == door_money
 
 
+## Plays the game 'iter' times with specified settings
 def run_game(switch: bool, iter: int, door: int) -> int:
     outcomes = []
 
@@ -43,7 +50,7 @@ def run_game(switch: bool, iter: int, door: int) -> int:
 
 
 def main():
-    ITER = 10000
+    ITER = 100
     
     # Prepares lists for both cases
     li_switch = []
@@ -70,7 +77,7 @@ def main():
     plt.ylim((0, ITER))
     plt.ylabel('N Wins')
     plt.xlabel('Door Chosen')
-    plt.legend(["Switched", "No Switch"])
+    plt.legend(["Always Switch", "Never Switch"])
 
     plt.show()
     
