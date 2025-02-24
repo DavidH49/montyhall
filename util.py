@@ -13,10 +13,3 @@ def get_open_door(da, dm):
         rnd = rn.randint(3)
     
     return rnd
-
-
-def print_game_data(gd):
-    print("Switch: ", gd["switch"])
-    print("Door Selected: ", gd["door"])
-    print(f"User won {gd["n_wins"]} / {gd["iter"]} times")
-    print("-" * 30)

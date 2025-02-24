@@ -34,14 +34,7 @@ def run_game(switch, iter, door):
         if ob:
             filter_outcomes.append(True)
 
-    game_data = {
-        'n_wins': len(filter_outcomes),
-        'iter': iter,
-        'door': door,
-        'switch': switch
-    }
-
-    return game_data
+    return len(filter_outcomes)
 
 
 def main():
@@ -54,8 +47,8 @@ def main():
         out_sw = run_game(True, ITER, i)
         out_nos = run_game(False, ITER, i)
 
-        li_switch.append(out_sw['n_wins'])
-        li_noswitch.append(out_nos['n_wins'])
+        li_switch.append(out_sw)
+        li_noswitch.append(out_nos)
     
     li_labels = np.array([0, 1, 2])
 
