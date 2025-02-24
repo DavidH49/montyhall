@@ -1,15 +1,18 @@
 import matplotlib.pyplot as plt
-import numpy as np
 from numpy import random as rn
 from icecream import ic
 
 
+NDOOR = 3
+ITERATIONS = 10000
+
+
 ## Gets the one remaining door which doesn't contain money
-def get_open_door(da: int, db: int) -> int:
+def find_door(exa: int, exb: int) -> int:
     # Horrible way of finding the door, but functional
-    rnd = da
-    while rnd == da or rnd == db:
-        rnd = rn.randint(3)
+    rnd = exa
+    while rnd == exa or rnd == exb:
+        rnd = rn.randint(NDOOR)
     
     return rnd
 
@@ -18,9 +21,9 @@ def get_open_door(da: int, db: int) -> int:
 def game(door: int, switch: bool) -> bool:
     # Sets all the door indices
     door_user = door
-    door_money = rn.randint(3)
-    door_open = get_open_door(door_user, door_money)
-    door_switch = get_open_door(door_user, door_open)
+    door_money = rn.randint(NDOOR)
+    door_open = find_door(door_user, door_money)
+    door_switch = find_door(door_user, door_open)
 
     # Switches the user's door if they choose so
     if switch:
@@ -49,34 +52,34 @@ def run_game(switch: bool, iter: int, door: int) -> int:
     return len(filter_outcomes)
 
 
+## Main Function
 def main():
-    ITER = 100
-    
     # Prepares lists for both cases
     li_switch = []
     li_noswitch = []
 
     # Plays the game many times
-    for i in range(3):
+    for i in range(NDOOR):
         # Always switches
-        out_sw = run_game(True, ITER, i)
+        out_sw = run_game(True, ITERATIONS, i)
         # Never switches
-        out_nos = run_game(False, ITER, i)
+        out_nos = run_game(False, ITERATIONS, i)
 
         # Appends the outcomes to the prepared lists
         li_switch.append(out_sw)
         li_noswitch.append(out_nos)
     
-    li_labels = np.array([0, 1, 2])
+    li_labels = [0, 1, 2]
 
     # Plot Bars
     plt.bar(li_labels, li_switch)
     plt.bar(li_labels, li_noswitch)
 
     # Plot Settings
-    plt.ylim((0, ITER))
-    plt.ylabel('N Wins')
-    plt.xlabel('Door Chosen')
+    plt.ylim((0, ITERATIONS))
+    plt.title("")
+    plt.ylabel("N Wins")
+    plt.xlabel("Door Chosen")
     plt.legend(["Always Switch", "Never Switch"])
 
     plt.show()
