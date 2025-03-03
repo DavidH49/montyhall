@@ -9,12 +9,12 @@ ITERATIONS = 10000
 
 ## Gets the one remaining door which doesn't contain money
 def find_door(exa: int, exb: int) -> int:
-    # Horrible way of finding the door, but functional
-    rnd = exa
-    while rnd == exa or rnd == exb:
-        rnd = rn.randint(NDOOR)
+    d = 0
+
+    while d == exa or d == exb:
+        d += 1
     
-    return rnd
+    return d
 
 
 ## Plays the game once with specified settings
@@ -69,7 +69,7 @@ def main():
         # Appends the outcomes to the prepared lists
         li_switch.append(out_sw)
         li_noswitch.append(out_nos)
-    
+
     li_labels = [0, 1, 2]
 
     # Plot Bars
