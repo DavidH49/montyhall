@@ -43,10 +43,11 @@ def run_game(switch: bool, iter: int, door: int) -> int:
         outcomes.append(out)
     
     # Filters the array to get the total amount of wins
-    filter_outcomes = []
-    for ob in outcomes:
-        if ob:
-            filter_outcomes.append(True)
+    filter_outcomes = filter(
+        lambda ob: not not ob,
+        outcomes
+    )
+    filter_outcomes = list(filter_outcomes)
 
     # Returns the total amount of wins
     return len(filter_outcomes)
